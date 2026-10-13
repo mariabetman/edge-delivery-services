@@ -1,0 +1,113 @@
+.regras .regras-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: regras;
+}
+
+.regras .regras-item {
+  --regras-accent: var(--cb-cyan);
+
+  position: relative;
+  border: 2px solid var(--cb-outline);
+  border-radius: 16px;
+  background-color: var(--light-color);
+  padding: 20px 20px 20px 76px;
+  counter-increment: regras;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.regras .regras-item::before {
+  content: counter(regras, decimal-leading-zero);
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background-color: var(--regras-accent);
+  color: var(--cb-dark);
+  font-family: var(--cb-font-mono);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.regras .regras-item-icon::before {
+  content: none;
+}
+
+.regras .regras-icon {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  width: 44px;
+  height: 44px;
+  border: 2px solid var(--regras-accent);
+  border-radius: 12px;
+  background-color: color-mix(in srgb, var(--regras-accent) 18%, transparent);
+  font-size: 24px;
+  line-height: 1;
+}
+
+.regras .regras-icon picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.regras .regras-icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 6px;
+  box-sizing: border-box;
+}
+
+.regras .regras-item:hover {
+  transform: translateY(-4px);
+  border-color: var(--regras-accent);
+  box-shadow: 0 0 22px color-mix(in srgb, var(--regras-accent) 45%, transparent);
+}
+
+.regras .regras-title {
+  margin: 0;
+  font-size: var(--heading-font-size-xs);
+  color: var(--regras-accent);
+}
+
+.regras .regras-text p {
+  margin: 6px 0 0;
+  font-size: var(--body-font-size-s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .regras .regras-item {
+    transition: none;
+  }
+
+  .regras .regras-item:hover {
+    transform: none;
+  }
+}
+
+@media (width >= 600px) {
+  .regras .regras-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (width >= 900px) {
+  .regras .regras-list {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+}

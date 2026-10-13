@@ -109,6 +109,41 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
 }
 
 /**
+ * Marks the nav link of the section currently on screen with aria-current.
+ * Links with a #id follow the section containing that id; the home link is
+ * active while no linked section is visible.
+ * @param {Element} nav The nav element
+ */
+function trackActiveSection(nav) {
+  const items = [...nav.querySelectorAll('.nav-sections a')].map((link) => {
+    const { pathname, hash } = new URL(link.href);
+    return {
+      link,
+      section: hash ? document.getElementById(hash.slice(1))?.closest('.section') : null,
+      isHome: !hash && pathname === window.location.pathname,
+    };
+  });
+
+  const visible = new Set();
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(({ target, isIntersecting }) => {
+      if (isIntersecting) visible.add(target);
+      else visible.delete(target);
+    });
+    const current = items.find(({ section }) => section && visible.has(section))
+      || items.find(({ isHome }) => isHome);
+    items.forEach(({ link }) => {
+      if (current && link === current.link) link.setAttribute('aria-current', 'true');
+      else link.removeAttribute('aria-current');
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+
+  items.forEach(({ section }) => {
+    if (section) observer.observe(section);
+  });
+}
+
+/**
  * loads and decorates the header, mainly the nav
  * @param {Element} block The header block element
  */
@@ -168,4 +203,5 @@ export default async function decorate(block) {
   navWrapper.className = 'nav-wrapper';
   navWrapper.append(nav);
   block.append(navWrapper);
+  trackActiveSection(nav);
 }

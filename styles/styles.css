@@ -11,13 +11,13 @@
  */
 
 :root {
-  /* colors */
-  --background-color: white;
-  --light-color: #f8f8f8;
-  --dark-color: #505050;
-  --text-color: #131313;
-  --link-color: #3b63fb;
-  --link-hover-color: #1d3ecf;
+  /* colors - dark neon theme, matched to the championship banner art */
+  --background-color: #0a0e27;
+  --light-color: #121a3d;
+  --dark-color: #8891b8;
+  --text-color: #f5f6ff;
+  --link-color: #00e5ff;
+  --link-hover-color: #6df3ff;
 
   /* fonts */
   --body-font-family: roboto, roboto-fallback, sans-serif;
@@ -38,6 +38,18 @@
 
   /* nav height */
   --nav-height: 64px;
+
+  /* css battle championship palette - shared design tokens for all blocks */
+  --cb-yellow: #ffd60a;
+  --cb-pink: #ff2fb0;
+  --cb-cyan: #00e5ff;
+  --cb-purple: #8b3ffc;
+  --cb-green: #00e676;
+  --cb-dark: #1b1033;
+  --cb-outline: rgb(255 255 255 / 14%);
+  --cb-surface-2: #182049;
+  --cb-gradient: linear-gradient(135deg, var(--cb-cyan) 0%, var(--cb-purple) 55%, var(--cb-pink) 100%);
+  --cb-font-mono: 'SFMono-Regular', consolas, 'Liberation Mono', menlo, monospace;
 }
 
 /* fallback fonts */
@@ -67,6 +79,16 @@
     --heading-font-size-m: 22px;
     --heading-font-size-s: 20px;
     --heading-font-size-xs: 18px;
+  }
+}
+
+html {
+  scroll-padding-top: calc(var(--nav-height) + 16px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
   }
 }
 
@@ -156,7 +178,8 @@ button {
 /* links */
 a:any-link {
   color: var(--link-color);
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
   overflow-wrap: break-word;
 }
 
@@ -314,6 +337,21 @@ main > .section:first-of-type {
   main > .section > div {
     padding: 0 32px;
   }
+}
+
+/* section headings: neon accent bar */
+main .default-content-wrapper h2 {
+  margin-bottom: 24px;
+}
+
+main .default-content-wrapper h2::after {
+  content: '';
+  display: block;
+  width: 64px;
+  height: 4px;
+  margin-top: 10px;
+  border-radius: 4px;
+  background: var(--cb-gradient);
 }
 
 /* section metadata */

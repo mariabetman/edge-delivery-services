@@ -5,15 +5,18 @@
 
 .hero {
   position: relative;
+  box-sizing: border-box;
+  width: 100%;
   padding: 40px 24px;
-  min-height: 300px;
+  aspect-ratio: 16 / 9;
+  max-height: calc(100dvh - var(--nav-height));
 }
 
 .hero h1 {
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
-  color: var(--background-color);
+  color: var(--text-color);
 }
 
 .hero picture {

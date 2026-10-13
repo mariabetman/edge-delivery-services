@@ -143,6 +143,19 @@ function decorateButtons(main) {
 }
 
 /**
+ * Opens external http(s) links in a new tab.
+ * @param {Element} main The container element
+ */
+function decorateExternalLinks(main) {
+  main.querySelectorAll('a[href]').forEach((link) => {
+    if (link.protocol.startsWith('http') && link.origin !== window.location.origin) {
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+    }
+  });
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -153,6 +166,7 @@ export function decorateMain(main) {
   decorateSections(main);
   decorateBlocks(main);
   decorateButtons(main);
+  decorateExternalLinks(main);
 }
 
 /**
